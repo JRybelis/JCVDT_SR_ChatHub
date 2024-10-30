@@ -6,9 +6,14 @@ namespace JCVDT_SR_ChatHub
         {
             var builder = WebApplication.CreateBuilder(args);
 
+            // Pass builder to Startup configuration
+            var startup = new Startup(builder.Configuration);
+            startup.ConfigureServices(builder.Services);
+
             var app = builder.Build();
 
-            app.MapGet("/", () => "Hello World!");
+            // Pass app to Startup configuration
+            startup.Configure(app, app.Environment);
 
             app.Run();
         }
